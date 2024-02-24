@@ -1,10 +1,25 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
 # Create your views here.
-from django.http import HttpResponse
+
+
+
+from django.shortcuts import render, redirect, HttpResponse
+from test_app.forms import NewCustomerForm
+
 
 def main_view(request):
-    return HttpResponse("This is main view")
+    form = NewCustomerForm(request.POST)
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            return redirect('/test/basic')
+    else:
+        form = NewCustomerForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'basic.html', context)
 
 def basic_view(request):
     return HttpResponse("This is basic view")
