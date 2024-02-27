@@ -20,5 +20,6 @@ from test_app import urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('test', include('test_app.urls'))
+    path('test', include('test_app.urls')),
+    path('blog/', include('blog.urls')),
 ]
